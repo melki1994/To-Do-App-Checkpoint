@@ -31,7 +31,8 @@ const taskReducer = (state = initialState, action) => {
     case DELETE_TASK:
       return state.filter((el) => el.id !== action.payload);
     case EDIT_TASK:
-      return state.map((el) => (el.id === action.payload.id ? {...el, description: action.payload.description}:el));
+      return state.map((el) => (el.id === action.payload.id ? 
+      {...el, description: action.payload.newDescription}:el));
     default:
       return state;
   }

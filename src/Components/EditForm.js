@@ -15,9 +15,11 @@ const customStyles = {
 };
 
 Modal.setAppElement("#root");
-const EditForm = ({ oldTask }) => {
+const EditForm = ({ el }) => {
+
+
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [old, setOld] = useState(oldTask.description);
+  const [newDescription, setNewDscription] = useState(el.description);
   const dispatch = useDispatch();
   function openModal() {
     setIsOpen(true);
@@ -25,11 +27,9 @@ const EditForm = ({ oldTask }) => {
   function closeModal() {
     setIsOpen(false);
   }
-  const handleChange = (e) => setOld(e.target.value);
+  const handleChange = (e) => setNewDscription(e.target.value);
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const editedTask = { ...oldTask, description: old };
-    dispatch(editTask(editedTask));
+    dispatch(editTask({ id: el.id, newDescription: newDescription }));
     closeModal();
   };
   return (
@@ -43,7 +43,7 @@ const EditForm = ({ oldTask }) => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            value={old}
+            defaultValue={el.description}
             onChange={handleChange}
           />
           <button>Confirm</button>
